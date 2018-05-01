@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Freelancer - Start Bootstrap Theme</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top" class="index">
+<div id="skipnav"><a href="#maincontent">Usuário</a></div>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Usuário</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio">Listagens</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">Cadastro</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <br><br><br><br><br><br>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default"> 
+            <div class="panel-heading">
+                DADOS PESSOAIS 
+            </div>
+            <div class="panel-body">
+                <form action="" method="POST">
+                    <div class="form-group row">
+                        <label for="IdFicha" class="col-sm-1 col-form-label" name="IdFicha"><font color="red">*</font> Nº ficha:</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" name="IdFicha" id="IdFicha" >
+                        </div>
+                        <label for="Nome" class="col-sm-1 col-form-label" name="NomeEncontrista"><font color="red">*</font>Nome:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="NomeEncontrista" id="NomeEncontrista"   >
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="DataNasc" class="col-sm-2 col-form-label" name="DataNasc">Data Nascimento:</label>
+                        <div class="col-sm-3">
+                            <input type="Date" class="form-control" name="DataNasc" id="DataNasc"   >
+                        </div>
+                        <label for="Idade" class="col-sm-1 col-form-label" name="Idade"><font color="red">*</font>Idade:</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" name="Idade" id="Idade"   >
+                        </div>
+                        <label for="Sexo" class="col-sm-1 col-form-label" name="Sexo">Sexo:</label>
+                        <div class="col-xs-2">
+                            <select name="Sexo" class="form-control"   >
+                                <option> </option>
+                                <option name="Sexo" id="Sexo" value="Feminino" >Feminino</option>
+                                <option name="Sexo" id="Sexo" value="Masculino">Masculino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="EstadoCivil" class="col-xs-1 col-form-label" name="EstadoCivil">Estado Civil:</label>
+                        <div class="col-sm-2">
+                            <select name="EstadoCivil" class="form-control"   >
+                                <option> </option>
+                                <option name="EstadoCivil"  value="Solteiro" >Solteiro</option>
+                                <option name="EstadoCivil"  value="Namorando" >Namorando</option>
+                                <option name="EstadoCivil"  value="Casado" >Casado</option>
+                            </select>
+                        </div>
+                        <label for="TelResid" class="col-xs-1 col-form-label" name="TelResid">Tel. Resid.:</label>
+                            <div class="col-sm-2" name="TelResid"  >
+                                <input type="text" class="form-control" name="TelResid" id="TelResid" placeholder="(DDD) 3333-3333"  >
+                            </div>
+                        <label for="Celular" class="col-xs-1 col-form-label" name="Celular">Celular.:</label>
+                            <div class="col-sm-2" name="Celular"  >
+                                <input type="text" class="form-control" name="Celular" id="Celular" placeholder="(DDD) 99999-9999" >
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Operadora" class="col-xs-1 col-form-label" name="Operadora">Operadora:</label>
+                        <div class="col-sm-2">
+                            <select name="Operadora" class="form-control"   >
+                                <option> </option>
+                                <option name="Operadora" value="VIVO">VIVO</option>
+                                <option name="Operadora" value="TIM">TIM</option>
+                                <option name="Operadora" value="CLARO">CLARO</option>
+                                <option name="Operadora" value="OI" >OI</option>
+                            </select>
+                        </div>
+                        <label for="Whats" class="col-xs-1 col-form-label" name="Whats">Possui WhatsApp:</label>
+                        <div class="col-sm-2">
+                            <select name="Whats" class="form-control"   >
+                                <option></option>
+                                <option name="Whats" id="Whats" value="SIM" >Sim</option>
+                                <option name="Whats" id="Whats" value="NÃO" >Não</option>
+                            </select>
+                        </div>
+                        <label for="Facebook" class="col-sm-1 col-form-label" name="Facebook">Facebook:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="Facebook" id="Facebook"  >
+                            </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="Email" class="col-sm-1 col-form-label" name="Email">Email:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="Email" id="Email" >
+                            </div>
+                        <label for="Convite" class="col-sm-2 col-form-label" name="Convite">Responsável pelo convite:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="Convite" id="Convite" placeholder="Pessoa responsável pelo convite">
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Paroquia" class="col-sm-2 col-form-label" name="Paroquia">Qual Paróquia você participa?</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="Paroquia" id="Paroquia">
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                     
+                        <label for="Comunidade" class="col-sm-2 col-form-label" name="Comunidade"><font color="red">*</font>Qual comunidade você participa?</label>
+                            <div class="col-sm-2">
+                                <select name="Comunidade" class="form-control"    onchange="this.value=='0' ? Outro.disabled=false : Outro.disabled=true;">
+                                    <option ></option>
+                                    
+                                </select>
+                            </div>
+                    </div>                       
+                    <div class="form-group row">
+                        <label for="Servico" class="col-sm-3 col-form-label" name="Servico">Participa de serviço(s) dentro da igreja?</label>
+                            <div class="col-sm-2">
+                                <select name="Servico" class="form-control"    onchange="this.value=='Sim'? Q_Servico.disabled=false : Q_Servico.disabled=true;">
+                                     <option></option>
+                                    <option name="Servico">Sim</option>
+                                    <option name="Servico">Não</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="Q_Servico"  placeholder="Serviços realizados">
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Onibus" class="col-sm-1 col-form-label" name="Onibus"><font color="red"><b>*</b></font>Irá de ônibus?</label>
+                        <div class="col-sm-2">
+                                <input type="radio" name="Onibus" id="Onibus" >Sim
+                                <input type="radio" name="Onibus" id="Onibus" >Não
+                        </div>
+						<label for="Mora" class="col-sm-2 col-form-label" name="Mora">Mora com:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder=" os pais/a mãe/o pai/sozinho/outro ..." name="Mora" id="Mora" >
+                        </div>
+                    </div>
+            </div><!-- FIM DADOS PESSOAIS-->
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            ENDEREÇO
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <label for="Rua" class="col-sm-1 col-form-label" name="Rua">Rua:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" placeholder="Rua/Avenida" name="Rua" id="Rua"  >
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Numero" class="col-sm-1 col-form-label" name="Numero">Número:</label>
+                                    <div class="col-sm-1">
+                                        <input type="text" class="form-control" name="Numero" id="Numero" >
+                                    </div>
+                                <label for="Bairro" class="col-sm-1 col-form-label" name="Bairro">Bairro:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="Bairro" id="Bairro"  >
+                                    </div>
+                                <label for="Cidade" class="col-sm-1 col-form-label" name="Cidade">Cidade:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="Cidade" id="Cidade"   >
+                                    </div>
+                                <label for="Estado" class="col-sm-1 col-form-label" name="Estado">Estado:</label>
+                                    <div class="col-sm-1">
+                                        <input type="text" class="form-control" name="Estado" id="Estado"  >
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Cep" class="col-sm-1 col-form-label" name="Cep">Cep:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="Cep" id="Cep"  >
+                                    </div>
+                                <label for="Referencia" class="col-sm-2 col-form-label" name="Referencia">Ponto de referência:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="Referencia" id="Referencia">
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Complemento" class="col-sm-2 col-form-label" name="Complemento">Complemento:</label>
+                                <div class="col-sm-2">
+									<select name="Complemento" class="form-control"   >
+										 <option></option>
+									<option name="Complemento" id="Complemento" value="Casa"> Casa</option>
+										<option name="Complemento" id="Complemento" value="Apartamento" >Apartamento</option>
+									</select>
+                                </div>
+                                    <label for="NumApt" class="col-sm-1 col-form-label" name="NumApt">Nº Apart.:</label>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" name="NumApt" id="NumApt"  >
+                                        </div>
+                                    <label for="NomeApt" class="col-sm-2 col-form-label" id="NomeAp">Nome do prédio:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="NomeApt" id="NomeApt" >
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            FILIAÇÃO
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <label for="NomePai" class="col-sm-1 col-form-label" name="NomePai">Nome do Pai:</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" name="NomePai" id="NomePai" >
+									</div>
+								<label for="ContatoPai" class="col-sm-1 col-form-label" name="ContatoPai">Contato:</label>
+									<div class="col-sm-2">
+										<input type="text" class="form-control" name="ContatoPai" id="ContatoPai"  >
+									</div>
+                            </div>
+                            <div class="form-group row">
+								<label for="NomeMae" class="col-sm-1 col-form-label" name="NomeMae">Nome da Mãe:</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" name="NomeMae" id="NomeMae" >
+									</div>
+								<label for="ContatoMae" class="col-sm-1 col-form-label" name="ContatoMae">Contato:</label>
+									<div class="col-sm-2">
+										<input type="text" class="form-control" name="ContatoMae" id="ContatoMae"  >
+									</div>
+                            </div>
+                            <div class="form-group row">
+								<label for="Responsavel" class="col-sm-2 col-form-label" name="Responsavel">Nome do Responsavel:</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" name="Responsavel" id="Responsavel"  >
+									</div>
+								<label for="ContatoResponsavel" class="col-sm-1 col-form-label" name="ContatoResponsavel">Contato:</label>
+									<div class="col-sm-2">
+										<input type="text" class="form-control" name="ContatoResponsavel"   >
+									</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            DADOS COMPLEMENTARES
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <label for="Procurar" class="col-sm-3 col-form-label" name="Procurar">Em caso de emergência, procurar:</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="Procurar" id="Procurar" >
+                                    </div>
+                                <label for="ContatoProcurar" class="col-sm-1 col-form-label" name="ContatoProcurar">Contato:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="ContatoProcurar" id="ContatoProcurar"  >
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                            <label for="Remedio" class="col-sm-2 col-form-label" name="Remedio">Toma algum medicamento?</label>
+                                <div class="col-sm-2">
+                                    <select name="Remedio" class="form-control"    onchange="this.value=='Sim'? Q_Remedio.disabled=false : Q_Remedio.disabled=true; this.value=='Sim'? Horario.disabled=false : Horario.disabled=true;">
+                                        <option></option>
+                                        <option name="Remedio" value="Sim">Sim</option>
+                                        <option name="Remedio" value="Nao" >Não</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="Q_Remedio" placeholder="Qual(is) medicamento(s)"  >
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="Horario" id="Horario" placeholder="Horários(De manhã / De Tarde / De Noite)">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                            <label for="Alergia" class="col-sm-2 col-form-label" name="Alergia">Possui alguma alergia ?</label>
+                                <div class="col-sm-2">
+                                    <select name="Alergia" class="form-control"    onchange="this.value=='Sim' ? Q_Alergia.disabled=false : Q_Alergia.disabled=true;">
+                                        <option></option>
+                                        <option name="Alergia" value="Sim">Sim</option>
+                                        <option name="Alergia" value="Nao" >Não</option>
+                                    </select>
+                                </div>
+                                 <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="Q_Alergia" id="Q_Alergia"placeholder="Quail(s) medicamento(s)"   >
+                                </div>
+                        </div>
+                        </div>
+                    </div>     
+                    <button type='submit' value ='cadastra' class='btn btn-danger'>Cadastrar</button>
+                     <button type="button" class="btn btn-primary" id="cancelar" onclick="location.href='../index.html';">Voltar</button>
+								<br>	<br>	<br>
+                            </form>
+                </div>
+            </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="../js/jqBootstrapValidation.js"></script>
+    <script src="../js/contact_me.js"></script>
+    <!-- Theme JavaScript -->
+    <script src="../js/freelancer.min.js"></script>
+
+</body>
+
+</html>

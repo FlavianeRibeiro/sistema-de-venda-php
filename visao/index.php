@@ -72,19 +72,20 @@
                                 <img class="card-img-top" src="img/'.$myproduto['img'].'.jpg">
                                 <h4 class="card-title">'.$myproduto['nomeproduto'].'</h4>
                                 <div class="card-text">
-                                  <b>Descrição:</b> '.$myproduto['descricao'].'
+                                  <b><div style="font-size: 13px;">Descrição:</b> '.$myproduto['descricao'].'</div>
                                   <br><b>Preço:</b> '.$myproduto['valor'].'
                                 </div>
+                                <a href="verProduto.php?op='.$myproduto['id'].'">ver mais ...</a>
                             </div>
                             <div class="card-footer">
-                              <button class="btn btn-primary btn-md"><i class="fa fa-cart-plus"></i></button>
+                              <a type="button" href="carrinho.php?acao=add&codigo='.$myproduto['codigo'].'" class="btn btn-primary btn-md" ><i class="fa fa-cart-plus"></i></a>
                             </div>
                         </div>
                     </div>';
                  } ?>
             </div>
         </div>
-
+  
       </div>
     </section>
     <section class="bg-dark text-white" >

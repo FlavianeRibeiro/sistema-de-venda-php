@@ -22,20 +22,21 @@ class produtoController  {
     }
     
     //Atualizar dados
-    public function atualizar($arry){
+    public function atualizar($arrayAtualizado){
         $produto = new produtoDAO();
-        return $produto->update($arry);
+        return $produto->update($arrayAtualizado);
     }
     
     //Atualizar dados
-   // public function atualizar($id){
-     //   $produto = new produtoDAO();
-      //  return $produto->update($id);
-//    }
-    //Atualizar dados
-    
     public function buscarProduto($id){
         $produto = new produtoDAO();
         return $produto->getId($id);
     }
+    
+    //Buscar por código
+    public function buscarProdutoCodigo($codigo){
+        $produto = new produtoDAO();
+        return $produto->getCodigo($codigo);
+    }
+
 }

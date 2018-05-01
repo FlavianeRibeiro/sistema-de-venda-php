@@ -1,17 +1,21 @@
 <?php 
     require_once '../controle/ClienteController.php';
     require_once '../persistencia/ClienteDAO.php';
+    //require_once '../modelo/Cliente.php';
+    
     $clienteController = new ClienteController();
     
     if (isset($_GET['acao'])){
     $acao = $_GET['acao'];
-
-        if($acao == "login"){
+        
+        if($acao == "cadastrarCliente"){
           $cliente = new ClienteDAO();
-            $cliente->setNome($_POST['nome']);
-            $cliente->setCpf($_POST['senha']);
-            
-             $result = $clienteController->save($cliente);
+          $cliente->setNome($_POST['nome']);
+          $cliente->setCpf($_POST['cpf']);
+          $cliente->setTelefone($_POST['telefone']);
+          $cliente->setEndereco($_POST['endereco']);
+          
+          $msg = $clienteController->save($cliente);
         }
     }
 ?>
@@ -31,7 +35,6 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/blog-home.css" rel="stylesheet">
     <?php include 'vendor/styler.php'?>
 
   </head>
@@ -63,7 +66,7 @@
         </div>
       </div>
     </nav>
-
+ 
     <!-- Page Content -->
     <section id="contact">
       <div class="container">
@@ -78,22 +81,25 @@
                 <form  action="<?php $SELF_PHP;?>?acao=cadastrarCliente" method="POST">
                   <div class="form-group">
                     <label for="formGroupExampleInput">Nome do cliente:</label>
-                    <input type="text" class="form-control" id="nome" placeholder="nome cliente">
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="nome cliente">
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput2">CPF:</label>
-                    <input type="text" class="form-control" id="cpf" placeholder="cpf cliente">
+                    <input type="number" min="0" class="form-control" name="cpf" id="cpf" placeholder="CPF cliente">
                   </div>
                    <div class="form-group">
                     <label for="formGroupExampleInput">Telefone:</label>
-                    <input type="text" class="form-control" id="telefone" placeholder="Telefone cliente">
+                    <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Telefone cliente">
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput2">Endereço:</label>
-                    <input type="text" class="form-control" id="endereco" placeholder="endereço cliente">
+                    <input type="text" class="form-control" name="endereco" id="endereco" placeholder="endereço cliente">
                   </div>
                   <div class="form-group">
-                    <button type="button" class="btn btn-outline-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                  </div>
+                  <div class="form-group">
+                    <?php echo $msg; ?>
                   </div>
                 </form>
               </div>

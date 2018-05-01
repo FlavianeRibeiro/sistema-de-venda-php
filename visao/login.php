@@ -57,12 +57,6 @@
                     </div>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
                 </form><!-- /form -->
-                <a href="#" class="forgot-password">
-                    Esqueceu a senha?
-                </a>
-                <a href="cad_cliente.php" class="forgot-password">
-                    Cadastrar-se
-                </a>
             </div><!-- /card-container -->
         </div>
     </div><!-- /container -->

@@ -25,17 +25,26 @@ class produtoDAO{
                         "'.$array[6].'")';
         if (!$sql) {
             die('Invalid query: ' . mysql_error());
-        }             
-        return mysql_query($sql);
+        }          
+        
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        
+        $res = mysqli_query($link, $sql);
+        if ($res)
+        	return "success";
+        else
+        	return "Erro ao salvar Produto";
     }
     
-    public function update($produto){
+    public function update($arrayAtualizado){
         $sql ='UPDATE `produto` SET 
-            `codigo`='.$array[0].', `nomeproduto`="'.$array[1].'",;
-            `valor`='.$array[2].', `estoque`='.$array[3].',
-            `img`="'.$array[4].'", `descricao`="'.$array[5].'",
-            `tipo`="'.$array[6].'"';
-        return mysql_query($sql);
+             `nomeproduto`="'.$arrayAtualizado[1].'",
+            `valor`='.$arrayAtualizado[2].', `estoque`='.$arrayAtualizado[3].',
+            `img`="'.$arrayAtualizado[4].'", `descricao`="'.$arrayAtualizado[5].'",
+            `tipo`="'.$arrayAtualizado[6].'"  where  `codigo` = '.$arrayAtualizado[0];
+            
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        return mysqli_query($link, $sql);
     }
     
     public function getAll(){
@@ -48,7 +57,11 @@ class produtoDAO{
         return mysql_query($sql);
     }
     public function getId($id){
-        $sql = 'SELECT * FROM `sistema_mer`.`produto` WHERE `id` = "'.$id.'"';
+        $sql = 'SELECT * FROM `sistema_mer`.`produto` WHERE `id` = '.$id;
+        return mysql_query($sql);
+    }
+        public function getCodigo($codigo){
+        $sql = 'SELECT * FROM `sistema_mer`.`produto` WHERE `codigo` = '.$codigo;
         return mysql_query($sql);
     }
 }

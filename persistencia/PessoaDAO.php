@@ -7,13 +7,26 @@ class PessoaDAO{
     private $cpf = '';
     private $telefone = '';
     
-    public function save($pessoa){
-        return mysql_query("INSERT INTO `pessoa`(`nome`, `cpf`, `telefone`) 
-        VALUES ('$pessoa->nome','$pessoa->cpf','$pessoa->telefone')");
+    public function savePessoa($pessoa){
+        //echo "INSERT INTO `pessoa`(`nome`, `cpf`, `telefone`) VALUES ('$pessoa->nome','$pessoa->cpf','$pessoa->telefone')";
+        
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        mysqli_query($link, "INSERT INTO `pessoa`(`nome`, `cpf`, `telefone`) 
+        VALUES ('$pessoa->nome',$pessoa->cpf,'$pessoa->telefone')");
+        
+        return $this->getPessoaByCpf($pessoa);
+    }
+    
+    public function getPessoaByCpf($pessoa){
+        //echo "select `id`, `nome`, `cpf`, `telefone` from `pessoa` where `cpf`='$pessoa->cpf'";
+        
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        return mysqli_query($link, "select `id`, `nome`, `cpf`, `telefone` from `pessoa` where `cpf`='$pessoa->cpf'");
     }
     
     public function update($pessoa){
-        return mysql_query($link,
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        return mysqli_query($link,
         "UPDATE `venda` SET 
         `nome`='$pessoa->nome',
         `cpf`='$pessoa->cpf',
@@ -27,7 +40,6 @@ class PessoaDAO{
     
     public function login($pessoa){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-	    //return "SELECT 1 FROM `pessoa` where `nome`='$pessoa->nome' and `cpf`='$pessoa->cpf'";
         return mysqli_query($link, "SELECT 1 FROM `pessoa` where `nome`='$pessoa->nome' and `cpf`='$pessoa->cpf'");
         
     }
