@@ -6,8 +6,9 @@ class vendedorDAO{
     private $codigoVendedor = '';
     
     public function save($vendendor){
-        return mysql_query("INSERT INTO `vendedor`(`codigoVendedor`) 
+        mysql_query("INSERT INTO `vendedor`(`codigoVendedor`) 
         VALUES ('$vendendor->codigoVendedor')");
+        return "sucesso";
     }
 
 }

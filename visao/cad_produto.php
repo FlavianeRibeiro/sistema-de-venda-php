@@ -11,10 +11,20 @@
   <?php
     include'vendor/styler.php'; 
     require_once '../controle/produtoController.php';
+    require_once '../controle/vendaController.php';
     require_once '../persistencia/produtoDAO.php';
+    require_once '../persistencia/compraDAO.php';
     $produtoController = new produtoController();
+    $compraController = new compraController();
     $produto = new produtoDAO();
+    $compra = new compraDAO();
     $action = 'cadastraProduto';
+    
+    session_start();
+    	if(isset($_SESSION["idPessoa"])){
+	  	$idPessoa = $_SESSION["idPessoa"];
+	    $nomePessoa = $_SESSION["nomePessoa"];
+	}else{ header('Location: login.php');}
 
      if (isset($_GET['acao'])){
          $acao = $_GET['acao'];
@@ -48,11 +58,11 @@
         }
         
         if($msg == "success"){
-          echo '<div class="alert alert-success" role="alert" id="flash-msg">
-                  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                  <h6><i class="icon fa fa-check"></i>Produto cadastrado com sucesso'</h6>
-                </div>';
-        }else if($msg != ""){
+            echo '<div class="alert alert-success" role="alert" id="flash-msg">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h6><i class="icon fa fa-check"></i>Produto cadastrado com sucesso</h6>
+                  </div>';
+        }else if($msg != "" && $_POST['nome'] != ""){
           echo '<div class="alert alert-danger" role="alert" id="flash-msg">
                   <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                   <h6><i class="icon fa fa-check"></i>'.$msg.'</h6>
@@ -79,7 +89,7 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-4">
                         <label for="nomeproduto">Nome do Produto:</label>
-                        <input type="text" class="form-control" name="nomeproduto" id="nomeproduto" value="<?php echo $nomeprocuto;?>"?>
+                        <input type="text" class="form-control" name="nomeproduto" id="nomeproduto" value="<?php echo $nomeprocuto;?>"? required autofocus>
                     </div>
                      <div class="col-md-4">
                         <label for="codigo">Código:</label>
@@ -129,7 +139,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
                   <?php if($acao == "cadastraProduto") { ?>
-                      <button type="submit" class="btn btn-primary">Cadastrar</button>';
+                      <button type="submit" class="btn btn-primary">Cadastrar</button>
                    <?php }else { ?>
                       <button type="submit" class="btn btn-primary" href="" >Editar</button>
                   <?php } ?>

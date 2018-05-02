@@ -12,27 +12,27 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">LOJA JFT</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">LOJA JFT</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">INICIO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=1">PROMOÇAO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="cad_produto.php?acao=cadastraProduto">Cadastrar Produto</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
-            </li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">INICIO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=1">PROMOÇAO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
+                </li>
+               <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="cad_produto.php?acao=cadastraProduto">Cadastrar Produto</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -52,15 +52,15 @@
         <div class="row">
           <div class="col-md-8">
                 <div class="card card-inverse card-info">
-                    <img class="card-img-top" src="img/img1.jpg">
+                    <img class="card-img-top" src="img/<?php echo $myProduto['img'];?>.jpg">
                 </div>
             </div>
            <div class="col-md-4">
                 <div class="card card-inverse card-info">
                     <div class="card-block">
                         <div class="card-text">
-                            Descrição: <?php echo $myProduto['descricao']; ?>
-                            <br>Preço: <?php echo $myProduto['valor']; ?>
+                            <b>Descrição:</b> <?php echo $myProduto['descricao']; ?>
+                            <br><b>Preço:</b> <?php echo $myProduto['valor']; ?>
                         </div>
                     </div>
                     <div class="card-footer">

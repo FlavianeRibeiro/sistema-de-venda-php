@@ -40,8 +40,15 @@ class PessoaDAO{
     
     public function login($pessoa){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-        return mysqli_query($link, "SELECT 1 FROM `pessoa` where `nome`='$pessoa->nome' and `cpf`='$pessoa->cpf'");
         
+        return mysqli_query($link, 
+            "SELECT p.`id`, `nome`, 'vendedor' as categoria FROM `pessoa` p
+                inner join `vendedor` v on v.idPessoa = p.id
+                where `nome`='$pessoa->nome' and `cpf`='$pessoa->cpf'
+            union  
+            SELECT p.`id`, `nome`, 'cliente' as categoria FROM `pessoa` p
+                inner join `cliente` c on c.idPessoa = p.id
+                where `nome`='$pessoa->nome' and `cpf`='$pessoa->cpf'");
     }
     
     /** Getters e Setters **/

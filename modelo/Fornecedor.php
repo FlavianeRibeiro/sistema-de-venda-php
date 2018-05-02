@@ -1,22 +1,15 @@
 <?php
-include 'Pessoa.php';
 
-class Cliente extends Pessoa{
+class Fornecedor{
     private $id = '';
-    private $idPessoa = '';
+    private $cnpj = '';
+    private $razaoSocial = '';
     private $endereco = '';
     
     /*----------------------------
              construtor 
     ----------------------------*/
     function __construct(){
-    }
-    
-    public function clienteDetails($nome, $cpf,$telefone, $endereco){
-        parent::setNome($nome);
-        parent::setCPF($cfp);
-        parent::setTelefone($telefone);
-        self::setTelefone($endereco);
     }
     
     /*----------------------------
@@ -30,15 +23,23 @@ class Cliente extends Pessoa{
         $this->id = $id;
     }
     
-    //Id Pessoa
-    public function getIdPessoa(){
-        return $this->$idPessoa;
+    //CNPJ
+    public function getCnpj(){
+        return $this->$cnpj;
     }
-    public function setIdPessoa($idPessoa){
-        $this->idPessoa = $idPessoa;
+    public function setCnpj($cnpj){
+        $this->cnpj = $cnpj;
     }
     
-    //Endereço
+    //RAZÃO SOCIAL
+    public function getRazaoSocial(){
+        return $this->$razaoSocial;
+    }
+    public function setRazaoSocial($razaoSocial){
+        $this->razaoSocial = $razaoSocial;
+    }
+    
+    //ENDERECO
     public function getEndereco(){
         return $this->$endereco;
     }

@@ -14,20 +14,34 @@
             $pessoa->setNome($_POST['nome']);
             $pessoa->setCpf($_POST['senha']);
             
-            $result = $pessoaController->login($pessoa);
+            $msg = $pessoaController->login($pessoa);
             
-           if (mysqli_num_rows($result) > 0) {
-                header('Location: index.php');
-            }else{
-              $msg = "Login Invalido!!";   
+            if($msg != "" && $_POST['nome'] != ""){
+                echo '<br><br><br>
+                      <div class="alert alert-danger" role="alert" id="flash-msg">
+                      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                      <h6><i class="icon fa fa-check"></i>'.$msg.'</h6>
+                    </div>';
             }
             
+        }elseif($acao == "logout"){
+            session_start();
+            session_destroy();
+            header('Location: index.php');
         }
         
     }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+  <header>
+     <script>
+      $(document).ready(function () {
+          $("#flash-msg").delay(3000).fadeOut("slow");
+      });
+    </script>
+  </header>
+    
     <link href="css/login.css" rel="stylesheet">
     <?php include 'vendor/styler.php'?>
 <body> 
@@ -47,7 +61,6 @@
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                 <p id="profile-name" class="profile-name-card"></p>
                 <form class="form-signin" action="<?php $SELF_PHP;?>?acao=login" method="POST">
-                    <span style="color:red"><?php echo $msg ?></span>
                     <input type="text" name="nome" id="nome"  value="<?php echo $nome;?>" class="form-control" placeholder="Nome" required autofocus>
                     <input type="password" name="senha" id="senha" value="<?php echo $senha;?>" class="form-control" placeholder="Senha" required>
                     <div id="remember" class="checkbox">
@@ -56,10 +69,22 @@
                         </label>
                     </div>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
+                    <div >
+                        <label>
+                            <a href="cad_cliente.php?acao=cadastrarCliente"> Cadastrar-se</a>
+                        </label>
+                    </div>
                 </form><!-- /form -->
             </div><!-- /card-container -->
         </div>
     </div><!-- /container -->
     </section>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
 </body>
 </html>

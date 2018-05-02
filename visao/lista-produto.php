@@ -46,9 +46,9 @@
   
   <body id="page-top">
     <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
           <div class="container">
-              <a class="navbar-brand js-scroll-trigger" href="#page-top">LOJA JFT</a>
+              <a class="navbar-brand js-scroll-trigger" href="index.php">LOJA JFT</a>
               <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -58,10 +58,10 @@
                           <a class="nav-link js-scroll-trigger" href="#about">INICIO</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="lista">PROMOÇAO</a>
+                          <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=1">PROMOÇAO</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="#portfolio">PEÇAS LIMITADAS</a>
+                          <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link js-scroll-trigger" href="#contact">Login</a>

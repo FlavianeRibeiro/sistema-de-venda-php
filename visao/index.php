@@ -5,6 +5,14 @@
     include'vendor/styler.php'; 
     require_once '../controle/produtoController.php';
     $produto = new produtoController();
+    
+    session_start();
+    if(isset($_SESSION["idPessoa"])){
+  	  	$idPessoa = $_SESSION["idPessoa"];
+  	    $nomePessoa = $_SESSION["nomePessoa"];
+  	    $categoria = $_SESSION["categoria"];
+  	}
+	
   ?>
   <body id="page-top">
     <!-- Navigation -->
@@ -25,12 +33,39 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
             </li>
-             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="cad_produto.php?acao=cadastraProduto">Cadastrar Produto</a>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="carrinho.php" >
+                  <i class="fa fa-cart-plus" style="font-size:24px;"></i>
+              </a>
             </li>
+            <?php 
+            if($idPessoa != ""){ 
+                if($categoria == "vendedor"){  ?>
+                 <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="cad_produto.php?acao=cadastraProduto">Cadastrar Produto</a>
+                </li>
+            <?php } ?>
+            <li class="dropdown open">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                    <i class="fa fa-user fa-fw" style="font-size:24px; padding: 8px 10px;"></i> 
+                    <?php echo $nomePessoa ?>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li> -->
+                    <li>
+                      <a href="login.php?acao=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+            </li>
+            <?php }else { ?>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
             </li>
+          <?php } ?>
           </ul>
         </div>
       </div>

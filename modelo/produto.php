@@ -1,5 +1,4 @@
 <?php
-include '../persistencia/Banco.php';
 
 class produto{
     private $id = '';
@@ -10,6 +9,12 @@ class produto{
     private $tipo = '';
     private $img = '';
     private $descricao = '';
+    
+    /*----------------------------
+             construtor 
+    ----------------------------*/
+    function __construct(){
+    }
     
     /*----------------------------
         Getters e Setters 
