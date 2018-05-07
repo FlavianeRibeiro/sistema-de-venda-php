@@ -1,12 +1,11 @@
 h5 {
-    font-size: 1.28571429em;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1.2857em;
     margin: 0;
 }
 
 .card {
-    font-size: 1em;
     overflow: hidden;
     padding: 0;
     border: none;
@@ -15,10 +14,9 @@ h5 {
 }
 
 .card-block {
-    font-size: 1em;
+    font-size: 15px;
     position: relative;
     margin: 0;
-    padding: 1em;
     border: none;
     border-top: 1px solid rgba(34, 36, 38, .1);
     box-shadow: none;
@@ -28,18 +26,22 @@ h5 {
     display: block;
     width: 100%;
     height: auto;
+    border: 0 !important;
 }
 
 .card-title {
-    font-size: 1.28571429em;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1.2857em;
+    margin-top: 8px;
+    text-align: center;
 }
 
 .card-text {
     clear: both;
-    margin-top: .5em;
     color: rgba(0, 0, 0, .68);
+    margin: 7px !important;
+    font-size: 13px;
 }
 
 .card-footer {
@@ -106,4 +108,9 @@ h5 {
 
 .meta a:hover {
     color: rgba(0, 0, 0, .87);
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 5px;
 }

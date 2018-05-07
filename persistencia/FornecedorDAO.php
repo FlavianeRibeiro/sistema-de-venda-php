@@ -9,9 +9,35 @@ class FornecedorDAO{
     
     function save($fornecedor){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-        mysqli_query($link, "INSERT INTO `fornecedor`( `cnpj`, `razaoSocial`, `endereco`) VALUES ('$fornecedor->cnpj','$fornecedor->razaoSocial','$fornecedor->endereco')");
-        
-        return "sucesso";
+        return mysqli_query($link, "INSERT INTO `fornecedor`( `cnpj`, `razaoSocial`, `endereco`) VALUES ('$fornecedor->cnpj','$fornecedor->razaoSocial','$fornecedor->endereco')");
+    }
+    
+    function update($fornecedor){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "UPDATE `fornecedor` SET 
+                                `cnpj`='$fornecedor->cnpj',
+                                `razaoSocial`='$fornecedor->razaoSocial',
+                                `endereco`='$fornecedor->endereco'
+                                where `id`='$fornecedor->id'";
+                                
+                                echo $sql;
+        return mysqli_query($link, $sql);
+    }
+    
+    function delet($fornecedor){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        //echo "DELETE FROM `fornecedor` WHERE `id`='$fornecedor->id'";
+        return mysqli_query($link, "DELETE FROM `fornecedor` WHERE `id`='$fornecedor->id'");
+    }
+    
+    function getAll(){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        return mysqli_query($link, "SELECT `id`, `cnpj`, `razaoSocial`, `endereco` FROM `fornecedor`");
+    }
+    
+    function getByID($fornecedor){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        return mysqli_query($link, "SELECT `id`, `cnpj`, `razaoSocial`, `endereco` FROM `fornecedor` where `id`='$fornecedor->id'");
     }
     
     /*----------------------------

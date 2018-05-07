@@ -17,6 +17,17 @@ class ClienteDAO extends PessoaDAO{
     }
     
     
+    public function getById($id){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "SELECT `pessoa`.`id`, `nome`, `cpf`, `telefone`, `endereco`
+                FROM `cliente`
+                INNER JOIN `pessoa` ON `pessoa`.`id`=`cliente`.`idPessoa`
+                WHERE `pessoa`.`id`='$id'";
+        //echo $sql;
+        return mysqli_query($link, $sql);
+    }
+    
+    
     /*----------------------------
         Getters e Setters 
     ----------------------------*/

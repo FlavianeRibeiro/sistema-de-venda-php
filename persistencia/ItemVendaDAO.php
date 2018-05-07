@@ -32,6 +32,31 @@ class ItemVendaDAO{
         return mysqli_query($link, "SELECT * FROM `item_venda`");
     }
     
+    public function getListagemCliente($id)
+    {
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "SELECT `item_venda`.`id` ,`item_venda`.`idProduto` , `item_venda`.`precoUnitario` , `item_venda`.`quantidade` , `venda`.`data` , `venda`.`valor` , `produto`.`nomeproduto`, `produto`.`img` 
+                FROM `item_venda` 
+                INNER JOIN `venda` ON `item_venda`.`idVenda` = `venda`.`id` 
+                INNER JOIN `produto` ON `produto`.`codigo` = `item_venda`.`idProduto` 
+                INNER JOIN `cliente` ON `venda`.`idCliente`= `cliente`.`id`
+                WHERE `cliente`.`idPessoa`='".$id."'";
+        //echo $sql;
+       return mysqli_query($link, $sql);
+    }
+    
+    public function getListagemVendedor($id)
+    {
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "SELECT `item_venda`.`id` ,`item_venda`.`idProduto` , `item_venda`.`precoUnitario` , `item_venda`.`quantidade` , `venda`.`data` , `venda`.`valor` , `produto`.`nomeproduto`, `produto`.`img` 
+                FROM `item_venda` 
+                INNER JOIN `venda` ON `item_venda`.`idVenda` = `venda`.`id` 
+                INNER JOIN `produto` ON `produto`.`codigo` = `item_venda`.`idProduto` 
+                INNER JOIN `vendedor` ON `venda`.`idVendedor`= `vendedor`.`id`
+                WHERE `vendedor`.`idPessoa`='".$id."'";
+       // echo $sql;
+       return mysqli_query($link, $sql);
+    }
     
     /*----------------------------
         Getters e Setters 

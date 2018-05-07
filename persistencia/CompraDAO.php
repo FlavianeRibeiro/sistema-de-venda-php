@@ -53,10 +53,16 @@ class CompraDAO{
 
     
     public function getAll(){
-        $sql = "SELECT * FROM  `venda`";
-        var_dump($sql);
-        return mysql_query($sql);
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "SELECT `compra`.`id`,`compra`.`data`, `fornecedor`.`razaoSocial`, `produto`.`nomeproduto`,`item_compra`.`precoUnitario`,`item_compra`.`quantidade`
+                FROM `compra` 
+                INNER JOIN `fornecedor` ON `fornecedor`.`id` = `compra`.`idFornecedor`
+                INNER JOIN `item_compra` ON `item_compra`.`idCompra` = `compra`.`id`
+                INNER JOIN `produto` ON `produto`.`id` = `item_compra`.`idProduto`";
+        //var_dump($sql);
+        return mysqli_query($link, $sql);
     }
+    
     
     /*----------------------------
         Getters e Setters 

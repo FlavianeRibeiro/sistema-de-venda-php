@@ -28,6 +28,15 @@ class produto{
         $this->id = $id;
     }
     
+    public function id()
+    {
+        if($id) {
+            $this->id = $id;
+        }
+        
+        return $this->id;
+    }
+    
     //Código
     public function getCodigo(){
         return $this->codigo;

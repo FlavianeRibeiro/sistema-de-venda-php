@@ -1,7 +1,7 @@
 <?php
 include 'Banco.php';
 include '../modelo/produto.php';
-class produtoDAO{
+class ProdutoDAO{
     private $id = '';
     private $codigo = '';
     private $nomeproduto = '';
@@ -14,7 +14,8 @@ class produtoDAO{
     /*----------------------------
         PESISTENCIA 
     ----------------------------*/    
-    public function salvarProduto($array) {
+    
+    public function salvarProdutoOld($array) {
          $sql ='INSERT INTO `sistema_mer`.`produto`(`codigo`, `nomeproduto`, `valor`, `estoque`, `img`, `descricao`, `tipo`) 
                 VALUES ('.$array[0].',
                         "'.$array[1].'",
@@ -23,10 +24,7 @@ class produtoDAO{
                         "'.$array[4].'",
                         "'.$array[5].'",
                         "'.$array[6].'")';
-        if (!$sql) {
-            die('Invalid query: ' . mysql_error());
-        }          
-        
+        var_dump($sql);
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
         
         $res = mysqli_query($link, $sql);
@@ -60,9 +58,10 @@ class produtoDAO{
         $sql = 'SELECT * FROM `sistema_mer`.`produto` WHERE `id` = '.$id;
         return mysql_query($sql);
     }
-        public function getCodigo($codigo){
+    public function getCodigo($codigo){
         $sql = 'SELECT * FROM `sistema_mer`.`produto` WHERE `codigo` = '.$codigo;
         return mysql_query($sql);
     }
+    
 }
 ?>

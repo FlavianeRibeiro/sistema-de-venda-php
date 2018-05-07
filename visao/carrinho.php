@@ -4,13 +4,13 @@
   <?php 
     include'vendor/styler.php'; 
     
-    require_once '../controle/produtoController.php';
+    require_once '../controle/ProdutoController.php';
     require_once '../controle/ItemVendaController.php';
     require_once '../controle/VendaController.php';
     require_once '../persistencia/VendaDAO.php';
     require_once '../persistencia/ItemVendaDAO.php';
     
-    $produtoControlle = new produtoController();
+    $produtoControlle = new ProdutoController();
     $itemVendaController = new ItemVendaController();
     $vendaController = new VendaController();
     
@@ -22,38 +22,38 @@
 	    $categoria = $_SESSION["categoria"];
       
       if(!isset($_SESSION['carrinho'])){
-         $_SESSION['carrinho'] = array();
+         $_SESSION['CarrinhoDeCompra'] = array();
       }
       //adiciona produto
       if(isset($_GET['acao'])){
          //ADICIONAR CARRINHO
          if($_GET['acao'] == 'add'){
             $codigo = intval($_GET['codigo']);
-            if(!isset($_SESSION['carrinho'][$codigo])){
-               $_SESSION['carrinho'][$codigo] = 1;
+            if(!isset($_SESSION['CarrinhoDeCompra'][$codigo])){
+               $_SESSION['CarrinhoDeCompra'][$codigo] = 1;
             }else{
-               $_SESSION['carrinho'][$codigo] += 1;
+               $_SESSION['CarrinhoDeCompra'][$codigo] += 1;
             }
          }
          //REMOVER CARRINHO
          if($_GET['acao'] == 'del'){
             $codigo = intval($_GET['codigo']);
-            if(isset($_SESSION['carrinho'][$codigo])){
-               unset($_SESSION['carrinho'][$codigo]);
+            if(isset($_SESSION['CarrinhoDeCompra'][$codigo])){
+               unset($_SESSION['CarrinhoDeCompra'][$codigo]);
             }
          }
          
          //ALTERAR QUANTIDADE
          if($_GET['acao'] == 'up'){
            $msg = '';
-            if(is_array($_POST['prod'])){
+           if(is_array($_POST['prod'])){
                foreach($_POST['prod'] as $codigo => $quantidade){
                     $codigo  = intval($codigo);
                     $quantidade = intval($quantidade);
                     if(!empty($quantidade) || $quantidade <> 0){
-                       $_SESSION['carrinho'][$codigo] = $quantidade;
+                       $_SESSION['CarrinhoDeCompra'][$codigo] = $quantidade;
                     }else{
-                       unset($_SESSION['carrinho'][$codigo]);
+                       unset($_SESSION['CarrinhoDeCompra'][$codigo]);
                     }
                }
             }
@@ -119,17 +119,17 @@
                   <caption>Carrinho de Compras</caption>
                   <thead >
                       <tr>
-                          <th width="244">Produto</th>
-                          <th width="79" style="text-align:  center;">Quantidade</th>
-                          <th width="89">Pre&ccedil;o</th>
-                          <th width="100">SubTotal</th>
-                          <th width="64">Remover</th>
+                          <th colspan="2">Produto</th>
+                          <th style="text-align:  center;">Quantidade</th>
+                          <th >Pre&ccedil;o</th>
+                          <th >SubTotal</th>
+                          <th >Remover</th>
                       </tr>
                   </thead>
               <form action="?acao=up" method="post">
                   <tfoot>
                          <tr>
-                          <td colspan="5">
+                          <td colspan="6">
                               <input type="submit" class="btn btn-primary"  value="Atualizar Carrinho" />
                           <a href="index.php" class="btn btn-success">Continuar Comprando</a>
                           <a href="carrinho.php?acao=ok" class="btn btn-info">Finalizar compra</a>
@@ -139,40 +139,39 @@
                   <tbody>
                        <?php
                             $link = mysql_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-                             if(count($_SESSION['carrinho']) == 0){
+                            if(count($_SESSION['CarrinhoDeCompra']) == 0){
                                 echo '<tr><td colspan="5">Não há produto no carrinho</td></tr>';
-                             }else{
+                            }else{
                                 $total = 0;$i=0;
-                                foreach($_SESSION['carrinho'] as $codigo => $quantidade){
-                                      $produtoCodigo = $produtoControlle->buscarProdutoCodigo($codigo);
-                                      $produto  = mysql_fetch_assoc($produtoCodigo);
-                                      $nome  = $produto['nomeproduto'];
-                                      $preco_unitario = number_format($produto['valor'], 2, ',', '.');
-                                      $sub   = number_format($produto['valor'] * $quantidade, 2, ',', '.');
-                                      $total += $produto['valor'] * $quantidade;
-                                         if($quantidade > $produto['estoque']){
-                                            $msg = "<font color='red'>Qtdd disponivel </font>";
-                                            $quantidade = $produto['estoque'];
-                                        }else {$msg = '';}
+                                foreach($_SESSION['CarrinhoDeCompra'] as $codigo => $quantidade){
+                                    $produtoCodigo = $produtoControlle->buscarProdutoCodigo($codigo);
+                                    $produto  = mysql_fetch_assoc($produtoCodigo);
+                                    $nome  = $produto['nomeproduto'];
+                                    $img  = $produto['img'];
+                                    $preco_unitario = number_format($produto['valor'], 2, ',', '.');
+                                    $sub   = number_format($produto['valor'] * $quantidade, 2, ',', '.');
+                                    $total += $produto['valor'] * $quantidade;
+                                       if($quantidade > $produto['estoque']){
+                                          $msg = "<font color='red'>Qtdd disponivel </font>";
+                                          $quantidade = $produto['estoque'];
+                                      }else {$msg = '';}
                                      
                                    echo '<tr>
-                                         <td>'.$nome.'</td>
-                                         <td style="text-align:  center;"><input type="text" style="text-align:  center;" size="3" name="prod['.$codigo.']" value="'.$quantidade.'" />'.$msg.'</td>
-                                         <td>R$ '.$preco_unitario.'</td>
-                                         <td>R$ '.$sub.'</td>
-                                         <td><a href="?acao=del&codigo='.$codigo.'"><i class="fa fa-trash"></i> Remove</a></td>
-                                      </tr>';
+                                           <td style="padding:0;width:25%;"><img src="img/'.$img.'" style="width: 25%;"></td>
+                                           <td>'.$nome.'</td>
+                                           <td style="text-align:  center;"><input type="text" style="text-align:  center;" size="3" name="prod['.$codigo.']" value="'.$quantidade.'" />'.$msg.'</td>
+                                           <td>R$ '.$preco_unitario.'</td>
+                                           <td>R$ '.$sub.'</td>
+                                           <td><a href="?acao=del&codigo='.$codigo.'"><i class="fa fa-trash"></i> Remove</a></td>
+                                        </tr>';
                                        $venda[$i] = array($codigo, $preco_unitario, $quantidade, $sub);
-                                       
                                       $i++;
                                 }
-                                 
-                                   $totalVenda = number_format($total, 2, ',', '.');
-                                   echo '<tr>
-                                            <td colspan="4">Total</td>
-                                            <td>R$ '.$totalVenda.'</td>
+                                $totalVenda = number_format($total, 2, ',', '.');
+                                echo '<tr>
+                                        <td colspan="5">Total</td>
+                                        <td>R$ '.$totalVenda.'</td>
                                       </tr>';
-                                      
                              }
                         if($_GET['acao'] == 'ok'){
                          if(isset($_SESSION["idPessoa"])){
@@ -186,27 +185,24 @@
                               }else{
                                 $myVenda->setIdCliente($_SESSION["idPessoa"]);
                               }
-                              
                               $result = $vendaController->salvar($myVenda);
-                              
                               if($result != ""){
                                 foreach($venda as $chave => $valor){
                                   $itemVenda = new ItemVendaDAO();
-                                  $itemVenda->setIdVenda($result);
-                                  $itemVenda->setIdProduto($valor[0]);
-                                  $itemVenda->setPrecoUnitario($valor[1]);
-                                  $itemVenda->setQuantidade($valor[2]);
+                                  $itemVenda->setIdVenda($result);              $itemVenda->setIdProduto($valor[0]);
+                                  $itemVenda->setPrecoUnitario($valor[1]);      $itemVenda->setQuantidade($valor[2]);
+                                  $CodigoEstoque = $valor[0];                   $Estoque = $valor[2];
                                   
                                   $itemVendaController->salvar($itemVenda);
+                                  $produtoControlle->atualizarQtddEstoque($CodigoEstoque,$Estoque);
                                 }
-                                 echo '<br><div class="alert alert-success" role="alert">
+                                unset($_SESSION['CarrinhoDeCompra']);
+                                echo '<br><div class="alert alert-success" role="alert">
                                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                         Pedido realizado com sucesso!!
                                       </div>';
                             }
-                          }else {
-                            header('Location: login.php');
-                          } //else userLogado
+                          }
                         }// fim Acao_Ok
                         }
                       ?>
@@ -224,4 +220,3 @@
   
   </body>
 </html>
-

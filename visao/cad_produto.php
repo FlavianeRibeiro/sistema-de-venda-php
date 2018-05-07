@@ -7,54 +7,59 @@
       });
     </script>
   </header>
-<br><br><br>
   <?php
     include'vendor/styler.php'; 
-    require_once '../controle/produtoController.php';
-    require_once '../controle/vendaController.php';
-    require_once '../persistencia/produtoDAO.php';
-    require_once '../persistencia/compraDAO.php';
-    $produtoController = new produtoController();
-    $compraController = new compraController();
-    $produto = new produtoDAO();
-    $compra = new compraDAO();
+    require_once '../controle/ProdutoController.php';
+    $produtoController = new ProdutoController();
     $action = 'cadastraProduto';
     
     session_start();
-    	if(isset($_SESSION["idPessoa"])){
+    $idPessoa = $_SESSION["idPessoa"];
+    $nomePessoa = $_SESSION["nomePessoa"];
+    if(empty($_SESSION["idPessoa"])) {
+        header('Location: login.php');die();
+    }
+    else if(isset($_SESSION["idPessoa"])){
 	  	$idPessoa = $_SESSION["idPessoa"];
 	    $nomePessoa = $_SESSION["nomePessoa"];
-	}else{ header('Location: login.php');}
-
+	  }
+      
      if (isset($_GET['acao'])){
          $acao = $_GET['acao'];
-        if($acao == "cadastraProduto"){
+         
+        if($_GET['acao'] == "cadastraProduto"){
           $titulo = "CADASTRO DE PRODUTO";
+          
+          //CARREGAR FOTO
+          $dir = 'img/';
+        	$up = $dir . $_FILES['Imagem']['name'];
+        	if (move_uploaded_file($_FILES['Imagem']['tmp_name'], $up))
+        	{
+        		$imagemtemp = $_FILES['Imagem']['name'];
+        	}
+        	
+          //Passando Dados por array
           $array = array($_POST['codigo'], $_POST['nomeproduto'], $_POST['valor'], $_POST['estoque'],
-              $_POST['img'],$_POST['descricao'],$_POST['tipo']);
-              $msg = $produtoController->salvar($array);
-              
+              $imagemtemp,$_POST['descricao'],$_POST['tipo']);
+              $msg = $produtoController->salvarOld($array);
         }else if($acao == 'AtualizarCadastro'){
           
            $arrayAtualizado = array($_POST['codigo'], $_POST['nomeproduto'], $_POST['valor'], $_POST['estoque'],
               $_POST['img'],$_POST['descricao'],$_POST['tipo']);
               $produto->update($arrayAtualizado);
-             header('Location: listarTodosProdutos.php');
+            header('Location: listarTodosProdutos.php');
         }elseif($acao == "editar"){
               $action = 'AtualizarCadastro';
-              $permissao='disabled';
+              
               $id = $_GET['Id'];
               $resposta = $produtoController->buscarProduto($id);
               $myProduto = mysql_fetch_array($resposta);
               $titulo = "EDIÇÃO DO PRODUTO";
-              $nomeprocuto = $myProduto['nomeproduto'];
-              $codigo = $myProduto['codigo'];
-              $valor = $myProduto['valor'];
-              $img = $myProduto['img'];
-              $estoque = $myProduto['estoque'];
-              $descricao = $myProduto['descricao'];
-              $img = $myProduto['img'];
-              $id = $myProduto['id'];
+              
+              $nomeprocuto = $myProduto['nomeproduto'];         $codigo = $myProduto['codigo'];
+              $valor = $myProduto['valor'];                     $img = $myProduto['img'];
+              $estoque = $myProduto['estoque'];                 $descricao = $myProduto['descricao'];
+              $img = $myProduto['img'];                         $id = $myProduto['id'];
         }
         
         if($msg == "success"){
@@ -73,8 +78,8 @@
   ?>
   <body id="page-top">
     <!-- Navigation -->
-  <?php include 'vendor/menuFuncionario.php';?>
-  <br><br>
+    <?php include 'vendor/menu.php';?>
+    
     <section id="contact">
       <div class="container">
         <div class="row">
@@ -84,7 +89,7 @@
           </div>
         </div>
         <div style="">
-            <form action="<?php $SELF_PHP;?>?acao=<?php echo $action;?>" method="POST">
+            <form action="<?php $SELF_PHP;?>?acao=<?php echo $action;?>" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-4">
@@ -109,14 +114,14 @@
                      <div class="col-md-3">
                         <label for="tipo">Tipo</label>
                         <select class="form-control" name="tipo" id="tipo">
-                            <option value="Jeans">Jeans</option>
-                            <option value="Acessorio" <?php if($tipo == 'Acessorio') echo"selected";?>>Acessorio</option>
-                            <option value="Promocao" <?php if($tipo == 'Prmocao') echo"selected";?>>Promoção</option>
-                            <option value="Limitado" <?php if($tipo == 'Limitado') echo"selected";?>>Limitado</option>
-                            <option value="Vestidos"  <?php if($tipo == 'Feminino') echo"selected";?>>Vestidos</option>
-                            <option value="Blusas"  <?php if($tipo == 'Vestidos') echo"selected";?>>Blusas</option>
-                            <option value="Camisetas"  <?php if($tipo == 'Camisetas') echo"selected";?>>Camisetas</option>
-                            <option value="Sapatodos"  <?php if($tipo == 'Sapatodos') echo"selected";?>>Sapatodos</option>
+                            <option value="Promocao" <?php if($tipo == 'Promocao') echo"selected";?>>Promoções</option>
+                            <option value="Limitadas" <?php if($tipo == 'Limitadas') echo"selected";?>>Limitadas</option>
+                            <option value="Suspense" <?php if($tipo == 'Suspense') echo"selected";?>>Suspense</option>
+                            <option value="FiccaoCientifica"  <?php if($tipo == 'FiccaoCientifica') echo"selected";?>>Ficção Ciêntifica</option>
+                            <option value="Romance"  <?php if($tipo == 'Romance') echo"selected";?>>Romance</option>
+                            <option value="HQ"  <?php if($tipo == 'HQ') echo"selected";?>>HQ</option>
+                            <option value="Religioso"  <?php if($tipo == 'Religioso') echo"selected";?>>Religioso</option>
+                            <option value="Historias" <?php if($tipo == 'Historias') echo"selected";?>>Historia</option>
                         </select>
                     </div>
                </div>
@@ -130,15 +135,15 @@
                <div class="row">
                  <div class="col-md-2"></div>
                 <div class="col-md-3">
-                    <label for="img">Imagem:</label>
-                    <input type="text" class="form-control" id="img" name="img" value="<?php echo $img;?>">
+                    <label for="Imagem">Imagem:</label>
+                    <input type="file" class="form-control" id="Imagem" name="Imagem">
                 </div>
                 </div>
               <br>
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
-                  <?php if($acao == "cadastraProduto") { ?>
+                  <?php if($action == "cadastraProduto") { ?>
                       <button type="submit" class="btn btn-primary">Cadastrar</button>
                    <?php }else { ?>
                       <button type="submit" class="btn btn-primary" href="" >Editar</button>

@@ -23,4 +23,9 @@ class ClienteController {
             }
         }
     }
+    
+    public function obterClientePorId($id){
+        $cliente = new ClienteDAO();
+        return $cliente->getById($id);
+    }
 }

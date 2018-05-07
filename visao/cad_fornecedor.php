@@ -12,10 +12,29 @@
     include'vendor/styler.php'; 
     require_once '../controle/FornecedorController.php';
     require_once '../persistencia/FornecedorDAO.php';
-    
     $fornecedorController = new FornecedorController();
     $fornecedor = new FornecedorDAO();
+    
+    $msg = '';
+      session_start();
+      
+      if(isset($_SESSION["idPessoa"])){
+  	  	$idPessoa = $_SESSION["idPessoa"];
+  	    $nomePessoa = $_SESSION["nomePessoa"];
+  	    $categoria = $_SESSION["categoria"];
+      }
+      else{
+        header('Location: login.php');
+      }
+    
+    
     $action = 'cadastraFornecedor';
+    if(isset($_GET['codigo'])){
+      $codigo = $_GET['codigo'];
+      $action = 'atualizarFornecedor&codigo='.$codigo;
+      $fornecedor->setId($codigo);
+    }
+    
      if (isset($_GET['acao'])){
          $acao = $_GET['acao'];
         if($acao == "cadastraFornecedor"){
@@ -24,26 +43,41 @@
         	$fornecedor->setRazaoSocial($_POST['razaoSocial']); 
         	$fornecedor->setEndereco($_POST['endereco']);
           $resposta = $fornecedorController->salvar($fornecedor);
-          var_dump($resposta);
+          //var_dump($resposta);
           if(!$resposta){
             echo '<br><div class="alert alert-danger" role="alert">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    This is a danger alert—check it out!
+                    Occorreu algum erro!!
                   </div>';
-          }else {
-            echo '<br><div class="alert alert-success" role="alert">
+          }
+        }else if($acao == "atualizarFornecedor"){
+         // echo $_POST['cnpj'];
+          $fornecedor->setCnpj($_POST['cnpj']);
+        	$fornecedor->setRazaoSocial($_POST['razaoSocial']); 
+        	$fornecedor->setEndereco($_POST['endereco']);
+        	$fornecedor->setId($_GET['codigo']);
+          $resposta = $fornecedorController->atualizar($fornecedor);
+          if(!$resposta){
+            echo '<br><div class="alert alert-danger" role="alert">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    Fornecedor Cadastrado com Sucesso
+                    Occorreu algum erro!!
                   </div>';
           }
         }
+     }else{
+       $result = $fornecedorController->obterFornecedor($fornecedor);
+        while($fornecedor = $result->fetch_array(MYSQLI_ASSOC)){
+            $codigo = $fornecedor['id'];
+        		$razaoSocial = $fornecedor['razaoSocial'];
+        		$endereco	= $fornecedor['endereco'];
+        		$cnpj	= $fornecedor['cnpj'];
+        }
      }
-    
   ?>
   <body id="page-top">
     <!-- Navigation -->
-    <?php include 'vendor/menuFuncionario.php';?>
-  <br><br>
+    <?php include 'vendor/menu.php';?>
+    
     <section id="contact">
       <div class="container">
         <div class="row">
@@ -58,21 +92,22 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <label for="razaoSocial">Razão Social:</label>
-                        <input type="text" class="form-control" name="razaoSocial" id="razaoSocial">
+                        <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $codigo;?>">
+                        <input type="text" class="form-control" name="razaoSocial" id="razaoSocial" value="<?php echo $razaoSocial;?>">
                     </div>
                 </div>
                 <div class="row">
                    <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <label for="cnpj">CNPJ:</label>
-                        <input type="text" class="form-control" name="cnpj" id="cnpj">
+                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="<?php echo $cnpj;?>">
                     </div>
                </div>
               <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <label for="endereco">Endereço:</label>
-                        <input type="text" class="form-control" name="endereco" id="endereco">
+                        <input type="text" class="form-control" name="endereco" id="endereco" value="<?php echo $endereco;?>">
                     </div>
                 </div>
               <br>
@@ -80,6 +115,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-4">
                   <button type="submit" class="btn btn-primary">Cadastrar</button>
+                  <a href="listarFornecedores.php" class="btn btn-info">Voltar</a>
                 </div>
               </div>
             </form>

@@ -1,14 +1,29 @@
 <?php 
     require_once '../controle/ClienteController.php';
     require_once '../persistencia/ClienteDAO.php';
-    //require_once '../modelo/Cliente.php';
     
     $clienteController = new ClienteController();
     
+     session_start();
+    if(isset($_SESSION["idPessoa"])){
+	  	$idPessoa = $_SESSION["idPessoa"];
+	    $nomePessoa = $_SESSION["nomePessoa"];
+	    $categoria = $_SESSION["categoria"];
+	    
+	    $result = $clienteController->obterClientePorId($idPessoa);
+      while($fornecedor = $result->fetch_array(MYSQLI_ASSOC)){
+          $id = $fornecedor['id'];
+      		$nome = $fornecedor['nome'];
+      		$telefone = $fornecedor['telefone'];
+      		$cpf	= $fornecedor['cpf'];
+      		$endereco	= $fornecedor['endereco'];
+      }
+	    
+    }
+    
     if (isset($_GET['acao'])){
     $acao = $_GET['acao'];
-        
-        if($acao == "cadastrarCliente"){
+        if($_GET['acao'] == "cadastrarCliente"){
           $cliente = new ClienteDAO();
           $cliente->setNome($_POST['nome']);
           $cliente->setCpf($_POST['cpf']);
@@ -16,6 +31,17 @@
           $cliente->setEndereco($_POST['endereco']);
           
           $msg = $clienteController->save($cliente);
+          
+        } else if($_GET['acao'] == "update"){
+          $cliente = new ClienteDAO();
+          $cliente->setId($_POST['id']);
+          $cliente->setNome($_POST['nome']);
+          $cliente->setCpf($_POST['cpf']);
+          $cliente->setTelefone($_POST['telefone']);
+          $cliente->setEndereco($_POST['endereco']);
+          
+          $msg = $clienteController->update($cliente);
+          
         }
     }
 ?>
@@ -51,32 +77,9 @@ window.onload = function(){
 </head>
     <?php include 'vendor/styler.php'?>
   <body>
-
+  
     <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.php">LOJA JFT</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">INICIO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=1">PROMOÇAO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php include 'vendor/menu.php';?>
  
     <!-- Page Content -->
     <section id="contact">
@@ -89,22 +92,23 @@ window.onload = function(){
             <div class="card" style="margin-top: 25px;">
               <h5 class="card-header">Cadastro de Cliente</h5>
               <div class="card-body">
-                <form  action="<?php $SELF_PHP;?>?acao=cadastrarCliente" method="POST">
+                <form  action="<?php $SELF_PHP;?>?acao=<?php echo $acao;?>" method="POST">
                   <div class="form-group">
                     <label for="formGroupExampleInput">Nome do cliente:</label>
-                    <input type="text" class="form-control" name="nome" id="nome" placeholder="nome cliente">
+                    <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $id;?>">
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="nome cliente" value="<?php echo $nome;?>">
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput2">CPF:</label>
-                    <input type="number" min="0" class="form-control" name="cpf" id="cpf" placeholder="CPF cliente">
+                    <input type="number" min="0" class="form-control" name="cpf" id="cpf" placeholder="CPF cliente" value="<?php echo $cpf;?>">
                   </div>
                    <div class="form-group">
                     <label for="formGroupExampleInput">Telefone:</label>
-                    <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Telefone cliente" maxlength="15">
+                    <input type="text" class="form-control" name="telefone" id="telefone" placeholder="Telefone cliente" maxlength="15" value="<?php echo $telefone;?>">
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput2">Endereço:</label>
-                    <input type="text" class="form-control" name="endereco" id="endereco" placeholder="endereço cliente">
+                    <input type="text" class="form-control" name="endereco" id="endereco" placeholder="endereço cliente" value="<?php echo $endereco;?>">
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
@@ -120,10 +124,13 @@ window.onload = function(){
         <!-- /.row -->
       </div> <!-- /.container -->
     </section>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
   </body>
 
 </html>
