@@ -3,9 +3,9 @@ require_once '../persistencia/CompraDAO.php';
 class CompraController {
     
     //Salvando cadastro de Fornecedor
-    public function salvar($fornecedor){
-      $fornecedor->save($fornecedor);
-      header('Location: listarFornecedores.php?msg=inserido');
+    public function salvar($array){
+      $compra = new CompraDAO();
+      $compra->save($array);
     }
     
     public function atualizar($fornecedor){

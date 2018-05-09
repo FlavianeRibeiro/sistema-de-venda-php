@@ -38,12 +38,18 @@ class ProdutoController  {
         $produto = new ProdutoDAO();
         return $produto->getCodigo($codigo);
     }
-
+    
     //Atualizar estoque
     public function atualizarQtddEstoque($codigo,$quantidade)
     {
         $produto = new ProdutoDAO();
         $var = $produto->alterarEstoque($codigo,$quantidade);
+        var_dump($var);
+    }
+    
+    public function addQtddEstoque($codigo,$quantidade){
+        $produto = new ProdutoDAO();
+        $var = $produto->addEstoque($codigo,$quantidade);
         var_dump($var);
     }
 }

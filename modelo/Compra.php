@@ -2,7 +2,6 @@
 
 class Compra{
     private $id = '';
-    private $codigo = '';
     private $idProduto ='';
     private $idFornecedor ='';
     private $data = '';
@@ -25,16 +24,7 @@ class Compra{
     public function setId($id){
         $this->id = $id;
     }
-        
-    //Código
-    public function getCodigo(){
-        return $this->$codigo;
-    }
-    
-    public function setCodigo($codigo){
-        $this->codigo = $codigo;
-    }
-    
+
     //DESCRISÃO
     public function getData(){
         return $this->$data;

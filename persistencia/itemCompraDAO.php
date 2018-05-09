@@ -32,6 +32,16 @@ class ItemCompraDAO{
         return mysqli_query($link, "SELECT * FROM `item_venda`");
     }
     
+    public function getBuscaProduto($idFornecedor,$idProduto){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        $sql = "SELECT p.nomeproduto
+                FROM fornecedor f
+                INNER JOIN compra c ON c.idFornecedor = f.id
+                INNER JOIN item_compra ic ON c.id = ic.idCompra
+                INNER JOIN produto p ON ic.idProduto = p.id
+                WHERE f.id = $idFornecedor and p.id = $idProduto";
+       return mysqli_query($link, $sql);
+    }
     
     /*----------------------------
         Getters e Setters 

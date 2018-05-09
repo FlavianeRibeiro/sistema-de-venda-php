@@ -13,7 +13,6 @@ class ItemVendaDAO{
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
         $sql =  "INSERT INTO `item_venda`(`idVenda`, `idProduto`, `precoUnitario`, `quantidade`) 
         VALUES ('$itemVenda->idVenda','$itemVenda->idProduto','$itemVenda->precoUnitario','$itemVenda->quantidade')";
-        //echo "<br>".$sql;
         return mysqli_query($link, $sql);
     }
     
@@ -32,31 +31,33 @@ class ItemVendaDAO{
         return mysqli_query($link, "SELECT * FROM `item_venda`");
     }
     
-    public function getListagemCliente($id)
-    {
+    public function getListagemCliente($id){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-        $sql = "SELECT `item_venda`.`id` ,`item_venda`.`idProduto` , `item_venda`.`precoUnitario` , `item_venda`.`quantidade` , `venda`.`data` , `venda`.`valor` , `produto`.`nomeproduto`, `produto`.`img` 
+        $sql = "SELECT `item_venda`.`id` ,`item_venda`.`idProduto` , `item_venda`.`precoUnitario` , 
+                SUM(`item_venda`.`quantidade`) AS 'quantidade' , `venda`.`data` , `venda`.`valor` , 
+                `produto`.`nomeproduto`, `produto`.`img` 
                 FROM `item_venda` 
                 INNER JOIN `venda` ON `item_venda`.`idVenda` = `venda`.`id` 
                 INNER JOIN `produto` ON `produto`.`codigo` = `item_venda`.`idProduto` 
                 INNER JOIN `cliente` ON `venda`.`idCliente`= `cliente`.`id`
-                WHERE `cliente`.`idPessoa`='".$id."'";
-        //echo $sql;
+                WHERE `cliente`.`idPessoa`='".$id."'
+                GROUP BY `produto`.`nomeproduto`";
        return mysqli_query($link, $sql);
     }
     
-    public function getListagemVendedor($id)
-    {
+    public function getListagemVendedor($id){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
         $sql = "SELECT `item_venda`.`id` ,`item_venda`.`idProduto` , `item_venda`.`precoUnitario` , `item_venda`.`quantidade` , `venda`.`data` , `venda`.`valor` , `produto`.`nomeproduto`, `produto`.`img` 
                 FROM `item_venda` 
                 INNER JOIN `venda` ON `item_venda`.`idVenda` = `venda`.`id` 
                 INNER JOIN `produto` ON `produto`.`codigo` = `item_venda`.`idProduto` 
                 INNER JOIN `vendedor` ON `venda`.`idVendedor`= `vendedor`.`id`
-                WHERE `vendedor`.`idPessoa`='".$id."'";
+                WHERE `vendedor`.`idPessoa`='".$id."'
+                GROUP BY `produto`.`nomeproduto`";
        // echo $sql;
        return mysqli_query($link, $sql);
     }
+
     
     /*----------------------------
         Getters e Setters 

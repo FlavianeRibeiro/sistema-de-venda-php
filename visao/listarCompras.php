@@ -72,7 +72,7 @@
                                       <td style="padding-top: 20px;"> '.$myItemCompra['precoUnitario'].'</td>
                                       <td style="padding-top: 20px;"> '.$myItemCompra['quantidade'].'</td>
                                       <td style="padding-top: 20px;">
-                                          <a href="cad_compra.php?produto='.$myItemCompra['id'].'"><i class="fa fa-edit"></i> Solicitar mais</a>
+                                          <a href="cad_compra.php?idprod='.$myItemCompra['idProduto'].'&idFor='.$myItemCompra['idFornecedor'].'"><i class="fa fa-edit"></i> Solicitar mais</a>
                                       </td>
                                     </tr>';
                             }

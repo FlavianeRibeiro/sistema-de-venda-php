@@ -5,12 +5,11 @@
     include'vendor/styler.php'; 
     require_once '../controle/ProdutoController.php';
     require_once '../controle/FornecedorController.php';
-    require_once '../controle/CompraController.php';
+    require_once '../controle/itemCompraController.php';
     require_once '../persistencia/CompraDAO.php';
-    $compraController = new CompraController();
+    $itemCompra = new itemCompraController();
     $produtoController = new ProdutoController();
     $fornecedorController = new FornecedorController();
-    $compra = new CompraDAO();
     
       $msg = '';
       session_start();
@@ -23,6 +22,20 @@
       else{
         header('Location: login.php');
       }
+      $data = date('d/m/y');
+      $idProduto = $_GET['idprod'];
+      $idFornecedor = $_GET['idFor'];
+      $myProduto = $itemCompra->buscarProdutosDeFornecedor($idProduto,$idFornecedor);
+     
+     
+      if(isset($_GET['acao'])){
+        if($_GET['acao'] == 'cadastro'){
+            $qtd = $_POST['quantidade'];  
+          $res = $produtoController->addQtddEstoque($idProduto,$qtd);
+          var_dump($res);
+        }
+      }
+      $action = 'cadastro';
   ?>
   
   <body id="page-top">
@@ -41,31 +54,19 @@
             <form action="<?php $SELF_PHP;?>?acao=<?php echo $action;?>" method="POST" > 
               <div class="form-row">
                 <div class="col-md-3"></div>
-                <div class="form-group col-md-6">
-                  <label for="fornecedor">Fornecedor</label>
-                  <select id="fornecedor" class="form-control">
-                    <?php 
-                    $resultF = $fornecedorController->obterTodosFornecedores();
-                    while($fornecedor = $resultF->fetch_array(MYSQLI_ASSOC)){
-                      echo "<option>".$fornecedor['razaoSocial']."</option>";
-                    }
-                    ?>
-                  </select>
+                <div class="form-group col-md-4">
+                  
+                  <?php 
+                      while($myProdutoFor = $myProduto->fetch_array(MYSQLI_ASSOC)){
+                        echo "Digite a quantidade de  produto <b>".$myProdutoFor['nomeproduto']."</b> do fornecedor <b>".$myProdutoFor['razaoSocial']."</b> :";
+                      }
+                  ?>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-3"></div>
-                <div class="form-group col-md-5">
-                  <label for="fornecedor">Produto</label>
-                  <select id="fornecedor" class="form-control">
-                    <?php 
-                    $resultP = $produtoController->listarTodas();
-                    while ($myproduto = mysql_fetch_array($resultP)){ 
-                      echo "<option>".$myproduto['nomeproduto']."</option>";
-                    }
-                    ?>
-                  </select>
-                  <button type="submit" class="btn btn-info">Add</button>
+                <div class="col-md-1">
+                  <input type='text' name='quantidade' class='form-control'/>
+                </div>
+                <div class="col-md-1">
+                  <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </div>
               </div>
             </form>
@@ -81,8 +82,3 @@
   
   </body>
 </html>
-
-
-
-            
-            

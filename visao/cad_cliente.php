@@ -96,11 +96,11 @@ window.onload = function(){
                   <div class="form-group">
                     <label for="formGroupExampleInput">Nome do cliente:</label>
                     <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $id;?>">
-                    <input type="text" class="form-control" name="nome" id="nome" placeholder="nome cliente" value="<?php echo $nome;?>">
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="nome cliente" value="<?php echo $nome;?>" required="true">
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput2">CPF:</label>
-                    <input type="number" min="0" class="form-control" name="cpf" id="cpf" placeholder="CPF cliente" value="<?php echo $cpf;?>">
+                    <input type="number" min="0" class="form-control" name="cpf" id="cpf" placeholder="CPF cliente" value="<?php echo $cpf;?>" required="true">
                   </div>
                    <div class="form-group">
                     <label for="formGroupExampleInput">Telefone:</label>

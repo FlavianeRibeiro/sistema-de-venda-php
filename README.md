@@ -1,2 +1,2 @@
-# inspinia
-Bootstrap admin theme
+# Sistema de Venda
+Trabalho de Engenharia de Softwares
