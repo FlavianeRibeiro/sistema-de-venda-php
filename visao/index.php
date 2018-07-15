@@ -58,7 +58,7 @@
                                 <img src="img/<?php echo $myproduto['img']; ?>" style="width:100%;">
                                 <div class="card-text">
                                     <a href="verProduto.php?op=<?php echo $myproduto['id']; ?>">ver mais...</a>
-                                    <br>Preço: <?php echo $myproduto['valor']; ?>
+                                    <br>Preço: <?php echo number_format($myproduto['valor'], 2, ',', '.'); ?>
                                 </div>
                             </div>
                             <div class="card-footer">

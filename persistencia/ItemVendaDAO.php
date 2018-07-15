@@ -25,6 +25,15 @@ class ItemVendaDAO{
         `quantidade`='$itemVenda->quantidade',
         WHERE `id` = '$itemVenda->id'");
     }
+        
+    public function obterVenda($item_venda){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+        
+        $sql = "SELECT `id` from `item_venda` where `data`='$this->data' and `valor`='$this->valorTotal' and `idVendedor`='$venda->idVendedor' and `idCliente`='$venda->idCliente'";
+        //echo "<br>".$sql;
+        return mysqli_query($link, $sql);
+        
+    }
     
     public function getAll(){
         $link = mysqli_connect("", "", "", "");

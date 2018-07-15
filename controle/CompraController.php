@@ -3,29 +3,19 @@ require_once '../persistencia/CompraDAO.php';
 class CompraController {
     
     //Salvando cadastro de Fornecedor
-    public function salvar($array){
+    public function salvar($compraProduto){
       $compra = new CompraDAO();
-      $compra->save($array);
+      return $compra->save_Compra($compraProduto);
     }
-    
-    public function atualizar($fornecedor){
-      $fornecedor->update($fornecedor);
-      //header('Location: listarFornecedores.php?msg=atualizado');
-    }
-    
-    public function deletar($fornecedor){
-      $fornecedor->delet($fornecedor);
-    }
-    
-    //Obtendo todos os Fornecedores
+
+    //Obtendo todos de compra
     public function obterTodasCompras(){
       $compra = new CompraDAO();
       return $compra->getAll();
     }
     
-    //Obtendo fornecedor por Id
-    public function obterFornecedor($fornecedor){
-      return $fornecedor->getById($fornecedor);
+    public function buscarDados(){
+      $compra = new CompraDAO();
+      return $compra->buscardados();
     }
-    
 }

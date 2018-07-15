@@ -64,7 +64,7 @@
                                
                                 <div class="card-text">
                                    Quantidade: '.$myproduto['estoque'].'
-                                    <br>Preço: '.$myproduto['valor'].'
+                                    <br>Preço: '.number_format($myproduto['valor'], 2, ',', '.').'
                                 </div>
                             </div>
                             <div class="card-footer" style="text-align:  center;">

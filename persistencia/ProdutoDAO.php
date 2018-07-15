@@ -16,13 +16,13 @@ class ProdutoDAO{
     ----------------------------*/    
     
     public function salvar($array) {
-         $sql ='INSERT INTO `sistema_mer`.`produto`(`codigo`, `nomeproduto`, `valor`, `estoque`, `img`, `descricao`, `tipo`) 
-                VALUES ('.$array[0].',
-                        "'.$array[1].'",
-                        '.$array[2].',
-                        '.$array[3].'")';
+         $sql ="INSERT INTO `sistema_mer`.`produto`(`codigo`, `nomeproduto`, `valor`, `estoque`, `img`, `descricao`, `tipo`) 
+                VALUES ('".$array[0]."',
+                        '".$array[1]."',
+                        ".$array[2].",
+                        ".$array[3].",'".$array[4]."','".$array[5]."','".$array[6]."')";
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-        
+        echo $sql;
         $res = mysqli_query($link, $sql);
         if ($res)
         	return "success";
@@ -31,13 +31,12 @@ class ProdutoDAO{
     }
     
     public function update($arrayAtualizado){
+        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
         $sql ='UPDATE `produto` SET 
              `nomeproduto`="'.$arrayAtualizado[1].'",
             `valor`='.$arrayAtualizado[2].', `estoque`='.$arrayAtualizado[3].',
-            `img`="'.$arrayAtualizado[4].'", `descricao`="'.$arrayAtualizado[5].'",
-            `tipo`="'.$arrayAtualizado[6].'"  where  `codigo` = '.$arrayAtualizado[0];
-            
-        $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
+            `descricao`="'.$arrayAtualizado[5].'",`tipo`="'.$arrayAtualizado[6].'"  
+            where  `codigo` = '.$arrayAtualizado[0];
         return mysqli_query($link, $sql);
     }
     
@@ -65,17 +64,10 @@ class ProdutoDAO{
         return mysqli_query($link,$sql);
     }
     
-    public function addEstoque($codigo, $quantidade){
+    public function addEstoque($idProduto, $quantidade){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
-        $sql = "UPDATE `produto` SET `estoque`= (`estoque` + $quantidade) WHERE `codigo` = $codigo";
-        $resposta = mysqli_query($link,$sql);
-        
-        if($resposta){
-            return "Sucesso";
-        }else{
-            return "Falha no Banco";
-        }
-        
+        $sql = "UPDATE `produto` SET `estoque`= (`estoque` + $quantidade) WHERE `id` = $idProduto";
+        return mysqli_query($link,$sql);
     }
     
 }

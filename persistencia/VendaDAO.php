@@ -12,7 +12,7 @@ class VendaDAO{
     public function save_venda($venda){
         $link = mysqli_connect("localhost", "flavianeribeiro", "", "sistema_mer");
         
-        $this->data = $today = date("m.d.y");
+        $this->data = $today = date ("Y-m-d");
         $this->idVendedor = $this->getIdVendedorByPessoa($venda);
         $this->idCliente = $this->getIdClienteByPessoa($venda);
         
@@ -69,15 +69,6 @@ class VendaDAO{
     public function setId($id){
         $this->id = $id;
     }
-    
-    /*
-    //Codigo
-    public function getCodigo(){
-        return $this->$codigo;
-    }
-    public function setCodigo($codigo){
-        $this->codigo = $codigo;
-    }*/
     
     //Data
     public function getData(){

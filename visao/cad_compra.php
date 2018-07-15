@@ -6,8 +6,9 @@
     require_once '../controle/ProdutoController.php';
     require_once '../controle/FornecedorController.php';
     require_once '../controle/itemCompraController.php';
-    require_once '../persistencia/CompraDAO.php';
+    require_once '../controle/CompraController.php';
     $itemCompra = new itemCompraController();
+    $compra = new CompraController();
     $produtoController = new ProdutoController();
     $fornecedorController = new FornecedorController();
     
@@ -25,16 +26,26 @@
       $data = date('d/m/y');
       $idProduto = $_GET['idprod'];
       $idFornecedor = $_GET['idFor'];
-      $myProduto = $itemCompra->buscarProdutosDeFornecedor($idProduto,$idFornecedor);
-     
+      $myProduto = $itemCompra->buscarProdutosDeFornecedor($idFornecedor,$idProduto);
      
       if(isset($_GET['acao'])){
         if($_GET['acao'] == 'cadastro'){
-            $qtd = $_POST['quantidade'];  
-          $res = $produtoController->addQtddEstoque($idProduto,$qtd);
-          var_dump($res);
-        }
+            $quantidade = $_POST['quantidade'];
+            $produtoController->addQtddEstoque($_GET['id'],$quantidade);
+            $myProduto = $itemCompra->buscarProdutosDeFornecedor($_GET['for'],$_GET['id']);
+            while($myProdutoFor = $myProduto->fetch_array(MYSQLI_ASSOC)){
+              $valor = $myProdutoFor['valor'];
+            }
+            $total = $valor * $quantidade;
+            $data = $today = date("m.d.y"); 
+            $compraProduto = array($_GET['for'],$data, $total);
+            // SALVANDO
+            $salvar = $compra->salvar($compraProduto);
+        } 
+           
+            header('Location: listarCompras.php');
       }
+      
       $action = 'cadastro';
   ?>
   
@@ -51,9 +62,10 @@
           </div>
         </div>
         <div style="">
-            <form action="<?php $SELF_PHP;?>?acao=<?php echo $action;?>" method="POST" > 
+            <form action="<?php $SELF_PHP;?>?acao=<?php echo $action;?>&id=<?php echo $idProduto;?>&for=<?php echo $idFornecedor;?>" method="POST" > 
               <div class="form-row">
-                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                </div>
                 <div class="form-group col-md-4">
                   
                   <?php 
@@ -63,7 +75,7 @@
                   ?>
                 </div>
                 <div class="col-md-1">
-                  <input type='text' name='quantidade' class='form-control'/>
+                  <input type='text' name='quantidade' id='quantidade' class='form-control'/>
                 </div>
                 <div class="col-md-1">
                   <button type="submit" class="btn btn-primary">Cadastrar</button>

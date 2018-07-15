@@ -50,19 +50,16 @@
                          if($total <= 0){
                             echo '<tr><td colspan="6">Não há fornecedores cadastrados</td></tr>';
                          }else{
-                           
                              while($fornecedor = $result->fetch_array(MYSQLI_ASSOC)){
-                                
                                echo '<tr>
                                       <td style="padding-top: 20px;" width="12%">
                                         <img class="card-img-top" src="img/'.$fornecedor['img'].'" style="width:80px;height:120px;"></td>
                                       <td style="padding-top: 20px;" width="30%"> '.$fornecedor['nomeproduto'].'</td>
                                       <td style="padding-top: 20px;" width="8%"> '.$fornecedor['data'].'</td>
-                                      <td style="padding-top: 20px;" width="8%"> '.$fornecedor['precoUnitario'].'</td>
+                                      <td style="padding-top: 20px;" width="8%"> '.number_format($fornecedor['precoUnitario'], 2, ',', '.').'</td>
                                       <td style="padding-top: 20px;" width="8%"> '.$fornecedor['quantidade'].'</td>
                                     </tr>';
                             }
-                                  
                            }?>
                   </tbody>
               </form>

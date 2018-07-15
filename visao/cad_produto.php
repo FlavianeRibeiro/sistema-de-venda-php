@@ -46,7 +46,7 @@
           
            $arrayAtualizado = array($_POST['codigo'], $_POST['nomeproduto'], $_POST['valor'], $_POST['estoque'],
               $_POST['img'],$_POST['descricao'],$_POST['tipo']);
-              $produto->update($arrayAtualizado);
+            $teste =  $produtoController->atualizar($arrayAtualizado);
             header('Location: listarTodosProdutos.php');
         }elseif($acao == "editar"){
               $action = 'AtualizarCadastro';
@@ -63,12 +63,12 @@
         }
         
         if($msg == "success"){
-            echo '<div class="alert alert-success" role="alert" id="flash-msg">
+            echo '<br><br><div class="alert alert-success" role="alert" id="flash-msg">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                     <h6><i class="icon fa fa-check"></i>Produto cadastrado com sucesso</h6>
                   </div>';
         }else if($msg != "" && $_POST['nome'] != ""){
-          echo '<div class="alert alert-danger" role="alert" id="flash-msg">
+          echo '<br><br><div class="alert alert-danger" role="alert" id="flash-msg">
                   <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                   <h6><i class="icon fa fa-check"></i>'.$msg.'</h6>
                 </div>';
@@ -135,8 +135,12 @@
                <div class="row">
                  <div class="col-md-2"></div>
                 <div class="col-md-3">
-                    <label for="Imagem">Imagem:</label>
-                    <input type="file" class="form-control" id="Imagem" name="Imagem">
+                   <?php if($action == "cadastraProduto") { ?>
+                       <label for="Imagem">Imagem:</label>
+                       <input type="file" class="form-control" id="Imagem" name="Imagem">
+                   <?php }else { ?>
+                       <br>
+                  <?php } ?>
                 </div>
                 </div>
               <br>
@@ -160,11 +164,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  
   </body>
 </html>
-
-
-
-            
-            

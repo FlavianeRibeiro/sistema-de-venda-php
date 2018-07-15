@@ -55,11 +55,6 @@
                             <i class="fa fa-shopping-cart"></i> 
                             ITENS VENDIDOS</a>
                       </li>
-                      <li>
-                          <a href="listaProdutoVendedor.php" style="padding: 8px 10px; color:black; font-size: .9rem; font-weight: 700;">
-                            <i class="fa fa-shopping-cart"></i> 
-                            COMPRADOS</a>
-                      </li>
                        <li>
                           <a href="listarCompras.php" style="padding: 8px 10px; color:black; font-size: .9rem; font-weight: 700;">
                             <i class="fa fa-shopping-cart"></i> 

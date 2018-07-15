@@ -1,6 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
-  
+<head>
+   <script src="vendor/jquery/jquery.min.js"></script>
+   <script>
+   function enviaPagseguro() {
+       $.post("pagseguro.php", '', function(data){
+         alert(data);
+         $('#code').val(data);
+         $('#comprar').submit();
+       })
+   }
+  </script>
+</head>  
   <?php 
     include'vendor/styler.php'; 
     
@@ -21,7 +33,7 @@
 	    $nomePessoa = $_SESSION["nomePessoa"];
 	    $categoria = $_SESSION["categoria"];
       
-      if(!isset($_SESSION['carrinho'])){
+      if(!isset($_SESSION['CarrinhoDeCompra'])){
          $_SESSION['CarrinhoDeCompra'] = array();
       }
       //adiciona produto
@@ -46,7 +58,7 @@
          //ALTERAR QUANTIDADE
          if($_GET['acao'] == 'up'){
            $msg = '';
-           if(is_array($_POST['prod'])){
+            if(is_array($_POST['prod'])){
                foreach($_POST['prod'] as $codigo => $quantidade){
                     $codigo  = intval($codigo);
                     $quantidade = intval($quantidade);
@@ -65,7 +77,45 @@
   
 <body id="page-top">
     <!-- Navigation -->
-    <?php include 'vendor/menu.php';?>
+     <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
+          <div class="container">
+              <a class="navbar-brand js-scroll-trigger" href="index.php">LOJA JFT</a>
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="#about">INICIO</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=1">PROMOÇAO</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="lista-produto.php?op=2">PEÇAS LIMITADAS</a>
+                      </li>
+                      <?php 
+                      if($_SESSION["idPessoa"]){ ?> 
+                      <li class="dropdown open">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                              <i class="fa fa-user fa-fw" style="font-size:24px; padding: 5px 10px;"></i> 
+                              <?php echo $nomePessoa ?>
+                          </a>
+                          <ul class="dropdown-menu dropdown-user">
+                              <li>
+                                <a href="login.php?acao=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <?php }else { ?>
+                      <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
+                      </li>
+                    <?php } ?>
+                  </ul>
+              </div>
+          </div>
+      </nav>
       <br><br><br><br>
       <div class="container">
           <div class="row">
@@ -129,11 +179,12 @@
                                        $venda[$i] = array($codigo, $preco_unitario, $quantidade, $sub);
                                       $i++;
                                 }
-                                $totalVenda = number_format($total, 2, ',', '.');
-                                echo '<tr>
-                                        <td colspan="5">Total</td>
-                                        <td>R$ '.$totalVenda.'</td>
-                                      </tr>';
+                                 $totalVenda = number_format($total, 2, ',', '.');
+                                 echo '<tr>
+                                          <td colspan="5">Total</td>
+                                          <td>R$ '.$totalVenda.'</td>
+                                    </tr>';
+                                      
                              }
                         if($_GET['acao'] == 'ok'){
                          if(isset($_SESSION["idPessoa"])){
@@ -149,6 +200,7 @@
                               }
                               $result = $vendaController->salvar($myVenda);
                               if($result != ""){
+                                echo "teste";
                                 foreach($venda as $chave => $valor){
                                   $itemVenda = new ItemVendaDAO();
                                   $itemVenda->setIdVenda($result);              $itemVenda->setIdProduto($valor[0]);
@@ -158,14 +210,14 @@
                                   $itemVendaController->salvar($itemVenda);
                                   $produtoControlle->atualizarQtddEstoque($CodigoEstoque,$Estoque);
                                 }
-                                unset($_SESSION['CarrinhoDeCompra']);
-                                echo '<br><div class="alert alert-success" role="alert">
-                                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                        Pedido realizado com sucesso!!
-                                      </div>';
+                                ?>
+                                
+                                <?php
                             }
                           }
                         }// fim Acao_Ok
+                        $_SESSION["dados"] = $venda;
+                        echo "<script>location.href='pagamento.php?idVenda=$result';</script>";
                         }
                       ?>
                   </tbody>
@@ -173,7 +225,6 @@
         </table>
         </div>
       </div>
-       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

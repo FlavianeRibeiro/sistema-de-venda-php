@@ -17,7 +17,7 @@ class ProdutoController  {
     //Salvando cadastro do produto
      public function salvarOld($array){
          $product = new ProdutoDAO();
-        return $product->salvarProdutoOld($array);
+        return $product->salvar($array);
     }
     
     
@@ -44,12 +44,10 @@ class ProdutoController  {
     {
         $produto = new ProdutoDAO();
         $var = $produto->alterarEstoque($codigo,$quantidade);
-        var_dump($var);
     }
     
-    public function addQtddEstoque($codigo,$quantidade){
+    public function addQtddEstoque($idProduto,$quantidade){
         $produto = new ProdutoDAO();
-        $var = $produto->addEstoque($codigo,$quantidade);
-        var_dump($var);
+        return $produto->addEstoque($idProduto,$quantidade);
     }
 }

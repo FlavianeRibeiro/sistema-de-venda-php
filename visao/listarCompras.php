@@ -51,7 +51,7 @@
                           <th>Valor</th>
                           <th>Quantidade</th>
                           <th>
-                            <a href="cad_compra.php"><i class="fa fa-plus-circle"></i> Nova Compra</a>
+                            <a href="cad_produto.php"><i class="fa fa-plus-circle"></i> Nova Compra</a>
                           </th>
                       </tr>
                   </thead>
